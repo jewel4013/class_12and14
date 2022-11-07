@@ -14,6 +14,7 @@
         <a href="/profile" class="btn btn-info">See Profile</a>
         <a href="/sendmail" class="btn btn-info">Send Mail</a>
         <a href="/fileup" class="btn btn-info">Upload a file</a>
+        <a href="{{url('/ultifileup')}}" class="btn btn-info">Multiple file Upload</a>
 
         <table class="table">
             <tr>

@@ -25,6 +25,9 @@ Route::post('/sendmail', [userControl::class, 'sending']);
 
 Route::get('/fileup', [FileControl::class, 'create']);
 Route::post('/fileup', [FileControl::class, 'store']);
+Route::get('/ultifileup', [FileControl::class, 'mfcreate']);
+Route::post('/ultifileup', [FileControl::class, 'mfstore']);
+
 
 Route::get('/profile', [profileControl::class, 'index']);
 

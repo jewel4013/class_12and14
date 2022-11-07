@@ -57,9 +57,43 @@ class FileControl extends Controller
             return back();
 
         }
+    }
 
+
+
+    // multiple file upload
+    public function mfcreate(){
+        return view('files.multiFileUpload');
+    }
+
+    public function mfstore(Request $request){
+
+        //dd(request()->file('propic')->getClientOriginalExtension());
+        // dd($request->propic);
+        $request->validate([
+            'propic' => 'required',          
+            'propic.*' => 'image|mimes:jpg,png,jpeg,gif',
+        ]);
+
+        if($request->hasFile('propic')){
+            foreach($request->propic as $file){
+                $fileNam = $file->getClientOriginalName();
+                $fileEx = $file->getClientOriginalExtension();
+                $fileFulName = rand().uniqid().$fileNam;
+                $file->move('All_img', $fileFulName);
+            }
+
+            
+            return back()->with('success', 'Image uploaded successful');
+        }
 
     }
+
+
+
+
+
+
 
     /**
      * Display the specified resource.
