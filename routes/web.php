@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileControl;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userControl;
 use App\Http\Controllers\profileControl;
@@ -18,6 +19,12 @@ use App\Http\Controllers\profileControl;
 Route::get('/', [userControl::class, 'index']);
 Route::get('/user-create', [userControl::class, 'create']);
 Route::post('/user-create', [userControl::class, 'store']);
+
+Route::get('/sendmail', [userControl::class, 'sendmail']);
+Route::post('/sendmail', [userControl::class, 'sending']);
+
+Route::get('/fileup', [FileControl::class, 'create']);
+Route::post('/fileup', [FileControl::class, 'store']);
 
 Route::get('/profile', [profileControl::class, 'index']);
 

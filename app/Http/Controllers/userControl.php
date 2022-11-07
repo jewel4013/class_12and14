@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Firstmail;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use App\Rules\AllUnderRule;
+use App\Rules\YearValidate;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class userControl extends Controller
 {
@@ -38,18 +42,20 @@ class userControl extends Controller
      */
     public function store(Request $request)
     {
+        // $myyear = Carbon::parse($request->date_of_birth)->format('Y');
+        // dd($myyear);
         $request->validate([
             'fname' => 'required|min:3|max:20',
             'lname' => 'required|min:3|max:20',
             'uname' => 'required|unique:users,uname',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'required|numeric',
+            'phone' => ['required', 'numeric', new AllUnderRule],
             'password' => 'required|confirmed',
             'password_confirmation' => 'required',
             'address' => 'required|max:80',
             'pic' => 'required',
             'bio' => 'required|max:1000',
-            'date_of_birth' => 'required',
+            'date_of_birth' => ['required', 'date', new YearValidate],
             'gender' => 'required',
         ],[
             'fname.required' => 'The First Name field is required.',
@@ -133,9 +139,9 @@ class userControl extends Controller
         $request->validate([
             'fname' => 'required|min:3|max:20',
             'lname' => 'required|min:3|max:20',
-            'uname' => 'required|unique:users,uname',
-            'email' => 'required|email|unique:users,email',
-            'phone' => 'required|numeric',
+            'uname' => 'required|unique:users,id,{$id}',
+            'email' => 'required|unique:users,id,{$id}',
+            'phone' => ['required', 'numeric', new AllUnderRule],
             'password' => 'required|confirmed',
             'password_confirmation' => 'required',
         ],[
@@ -183,6 +189,32 @@ class userControl extends Controller
         $user = User::find($id);
         $user->delete();
         $user->profile->delete();
+
+        return redirect('/');
+
+    }
+
+    public function sendmail()
+    {
+        return view('mails.sendMail');
+        
+    }
+    public function sending(){
+        request()->validate([
+            'email' => 'required|email',
+            'sub' => 'required',
+            'message' => 'required',
+        ]);
+
+        $to = request('email');
+        $sub = request('sub');
+        $mailmsg = request('message');
+
+
+        $object = new \stdClass();
+        $object->message = $mailmsg;
+        $object->subject = $sub;
+        Mail::to($to)->send(new Firstmail($object));
 
         return redirect('/');
 

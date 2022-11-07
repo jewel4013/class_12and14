@@ -12,6 +12,8 @@
         <h1>One To One relation. Class 12 and 14-15</h1>
         <a href="/user-create" class="btn btn-info">Create a new user</a>
         <a href="/profile" class="btn btn-info">See Profile</a>
+        <a href="/sendmail" class="btn btn-info">Send Mail</a>
+        <a href="/fileup" class="btn btn-info">Upload a file</a>
 
         <table class="table">
             <tr>
