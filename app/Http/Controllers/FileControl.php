@@ -71,8 +71,8 @@ class FileControl extends Controller
         //dd(request()->file('propic')->getClientOriginalExtension());
         // dd($request->propic);
         $request->validate([
-            'propic' => 'required',          
-            'propic.*' => 'image|mimes:jpg,png,jpeg,gif',
+            'propic' => 'required',
+            'propic.*' => 'image|mimes:jpg,png',
         ]);
 
         if($request->hasFile('propic')){

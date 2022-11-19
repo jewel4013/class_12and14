@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FileControl;
+use App\Http\Controllers\morphControl;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userControl;
 use App\Http\Controllers\profileControl;
@@ -31,6 +32,14 @@ Route::post('/ultifileup', [FileControl::class, 'mfstore']);
 
 Route::get('/profile', [profileControl::class, 'index']);
 
+
+
+// Morph 
+Route::get('/morph', [morphControl::class, 'index']);
+Route::get('/morph/user', [morphControl::class, 'create']);
+Route::post('/morph/user', [morphControl::class, 'store']);
+
+
 Route::get('/{id}', [userControl::class, 'show']);
 Route::get('/{id}/user-edit', [userControl::class, 'edit']);
 Route::patch('/{id}/user-edit', [userControl::class, 'update']);
@@ -38,6 +47,4 @@ Route::delete('/{id}/delete', [userControl::class, 'destroy']);
 
 Route::get('/{id}/profile-edit', [profileControl::class, 'edit']);
 Route::patch('/{id}/profile-edit', [profileControl::class, 'update']);
-
-
 

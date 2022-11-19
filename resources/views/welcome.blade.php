@@ -15,6 +15,7 @@
         <a href="/sendmail" class="btn btn-info">Send Mail</a>
         <a href="/fileup" class="btn btn-info">Upload a file</a>
         <a href="{{url('/ultifileup')}}" class="btn btn-info">Multiple file Upload</a>
+        <a href="{{url('/morph')}}" class="btn btn-info">Morph One To One</a>
 
         <table class="table">
             <tr>
