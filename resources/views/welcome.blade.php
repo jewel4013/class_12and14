@@ -16,6 +16,7 @@
         <a href="/fileup" class="btn btn-info">Upload a file</a>
         <a href="{{url('/ultifileup')}}" class="btn btn-info">Multiple file Upload</a>
         <a href="{{url('/morph')}}" class="btn btn-info">Morph One To One</a>
+        <a href="{{url('/morph2')}}" class="btn btn-info">Morph One To Many</a>
 
         <table class="table">
             <tr>

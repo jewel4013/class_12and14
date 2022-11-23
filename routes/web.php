@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\FileControl;
 use App\Http\Controllers\morphControl;
+use App\Http\Controllers\morphpostControl;
+use App\Http\Controllers\morphvideoControl;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userControl;
 use App\Http\Controllers\profileControl;
@@ -34,10 +36,27 @@ Route::get('/profile', [profileControl::class, 'index']);
 
 
 
-// Morph 
-Route::get('/morph', [morphControl::class, 'index']);
+// Morph one to one
+Route::get('/morph', [morphControl::class, 'index'])->name('morph');
 Route::get('/morph/user', [morphControl::class, 'create']);
 Route::post('/morph/user', [morphControl::class, 'store']);
+Route::get('/morph/post', [morphControl::class, 'postcreate']);
+Route::post('/morph/post', [morphControl::class, 'poststore']);
+
+
+
+
+
+
+// Morph one to many
+Route::get('/morph2', function(){
+    return view('morph2.index');
+});
+Route::get('/morph2/post', [morphpostControl::class, 'index']);
+Route::get('/morph2/post/create', [morphpostControl::class, 'create']);
+Route::get('/morph2/video', [morphvideoControl::class, 'index']);
+Route::get('/morph2/video/create', [morphvideoControl::class, 'create']);
+Route::post('/morph2/video/create', [morphvideoControl::class, 'store']);
 
 
 Route::get('/{id}', [userControl::class, 'show']);

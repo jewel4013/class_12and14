@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MorphPost;
 use App\Models\MorphUser;
 use Exception;
+use Faker\Extension\Extension;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\TryCatch;
@@ -28,6 +30,11 @@ class morphControl extends Controller
     public function create()
     {
         return view('morph.create');
+    }
+
+    public function postcreate()
+    {
+        return view('morph.post');
     }
 
     /**
@@ -64,6 +71,33 @@ class morphControl extends Controller
 
         return redirect(url('/morph'));
 
+    }
+
+
+
+    public function poststore(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|min:5|max:50',
+            'path' => 'required',
+        ]);
+
+        try {
+            DB::transaction(function(){
+                $post = MorphPost::create([
+                    'title' => request('title'),
+                ]);
+
+                $post->images()->create([
+                    'path' => request('path'),
+                ]);
+            });
+        } catch (Extension $e) {
+            return back()->with('wrongs', 'Something Wrong, try again');
+        }
+
+
+        return redirect(url('/morph'));
     }
 
     /**
