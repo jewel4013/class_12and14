@@ -27,7 +27,9 @@
                     <td>{{$video->id}}</td>
                     <td>{{$video->url}}</td>
                     <td>{{$video->file_path}}</td>
-                    <td>Actions</td>
+                    <td>
+                        <a href="/morph2/video/{{$video->id}}" class="btn btn-info">Show</a>
+                    </td>
                 </tr> 
             @endforeach
         </table>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FileControl;
+use App\Http\Controllers\morphcommentControl;
 use App\Http\Controllers\morphControl;
 use App\Http\Controllers\morphpostControl;
 use App\Http\Controllers\morphvideoControl;
@@ -54,9 +55,14 @@ Route::get('/morph2', function(){
 });
 Route::get('/morph2/post', [morphpostControl::class, 'index']);
 Route::get('/morph2/post/create', [morphpostControl::class, 'create']);
+Route::post('/morph2/post/create', [morphpostControl::class, 'store']);
+
 Route::get('/morph2/video', [morphvideoControl::class, 'index']);
 Route::get('/morph2/video/create', [morphvideoControl::class, 'create']);
 Route::post('/morph2/video/create', [morphvideoControl::class, 'store']);
+Route::get('/morph2/video/{id}', [morphvideoControl::class, 'show']);
+
+Route::post('/morph2/video/{id}/comment', [morphcommentControl::class, 'commentstore']);
 
 
 Route::get('/{id}', [userControl::class, 'show']);

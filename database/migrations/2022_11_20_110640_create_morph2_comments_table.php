@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('morph2_comments', function (Blueprint $table) {
             $table->id('id');
-            $table->string('comment_body');
+            $table->text('comment_body');
             $table->unsignedBigInteger('commentable_id');
-            $table->string('conmmentable_type');
+            $table->string('commentable_type');
             $table->timestamps();
         });
     }

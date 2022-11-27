@@ -55,7 +55,9 @@ class morphvideoControl extends Controller
      */
     public function show($id)
     {
-        //
+        return view('morph2.videoshow', [
+            'svideo' => Morph2Video::find($id),
+        ]);
     }
 
     /**

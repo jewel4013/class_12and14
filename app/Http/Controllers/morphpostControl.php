@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Morph2Post;
 use Illuminate\Http\Request;
 
 class morphpostControl extends Controller
@@ -34,7 +35,12 @@ class morphpostControl extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required', 
+        ]);
+        Morph2Post::create(request()->except('_token'));
+
+        return redirect(url('/morph2/post'));
     }
 
     /**

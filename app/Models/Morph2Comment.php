@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Morph2Comment extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
 }

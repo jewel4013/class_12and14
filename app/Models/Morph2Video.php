@@ -10,4 +10,9 @@ class Morph2Video extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Morph2Comment', 'commentable');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Morph2Video;
 use Illuminate\Http\Request;
 
 class morphcommentControl extends Controller
@@ -36,6 +37,19 @@ class morphcommentControl extends Controller
     {
         //
     }
+
+    public function commentstore($id)
+    {
+        $video = Morph2Video::find($id);
+        $video->comments()->create([
+            'comment_body' => request('comment_body'),
+        ]);
+
+        
+        return back();
+    }
+
+
 
     /**
      * Display the specified resource.

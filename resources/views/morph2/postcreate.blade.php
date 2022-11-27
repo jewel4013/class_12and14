@@ -15,35 +15,14 @@
 
         <div class="row">
             <div class="col-md-6">
-                <form action="/morph/user" method="POST" class="form">
+                <form action="/morph2/post/create" method="POST" class="form">
                     @csrf
 
-                    @if(session()->has('wrongs'))
-                        <div class="alert alert-danger alert-dismissible fade show mt-2">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            <strong>{{session()->get('wrongs')}}</strong>
-                        </div>
-                    @endif
-
                     <div class="form-group mt-2">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control {{$errors->has('name') ? 'is-invalid' : ''}}" id="name" name="name">
+                        <label for="title">Post Title</label>
+                        <input type="text" class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}" id="title" name="title">
                         <span class="invalid-feedback">
-                            {{$errors->first('name')}}
-                        </span>
-                    </div>
-                    <div class="form-group mt-2">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}" id="email" name="email">
-                        <span class="invalid-feedback">
-                            {{$errors->first('email')}}
-                        </span>
-                    </div>
-                    <div class="form-group mt-2">
-                        <label for="path">Path</label>
-                        <input type="text" class="form-control {{$errors->has('path') ? 'is-invalid' : ''}}" id="path" name="path">
-                        <span class="invalid-feedback">
-                            {{$errors->first('path')}}
+                            {{$errors->first('title')}}
                         </span>
                     </div>
 

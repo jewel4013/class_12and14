@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Morph2Post extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
 }
