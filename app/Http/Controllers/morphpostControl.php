@@ -14,7 +14,9 @@ class morphpostControl extends Controller
      */
     public function index()
     {
-        return view('morph2.postindex');
+        return view('morph2.postindex',[
+            'posts' => Morph2Post::all(),
+        ]);
     }
 
     /**
@@ -51,7 +53,9 @@ class morphpostControl extends Controller
      */
     public function show($id)
     {
-        //
+        return view('morph2.postshow', [
+            'spost' => Morph2Post::find($id),
+        ]);
     }
 
     /**

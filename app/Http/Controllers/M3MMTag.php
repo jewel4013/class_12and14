@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Morph2Comment;
-use App\Models\Morph2Post;
-use App\Models\Morph2Video;
+use App\Models\M3Tag;
 use Illuminate\Http\Request;
 
-class morphcommentControl extends Controller
+class M3MMTag extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,8 @@ class morphcommentControl extends Controller
      */
     public function index()
     {
-        return view('morph2.commentsindex', [
-            'comments' => Morph2Comment::all(),
+        return view('morph3/tag.index', [
+            'tags' => M3Tag::all(),
         ]);
     }
 
@@ -28,7 +26,7 @@ class morphcommentControl extends Controller
      */
     public function create()
     {
-        //
+        return view('morph3/tag.create');
     }
 
     /**
@@ -39,40 +37,25 @@ class morphcommentControl extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    public function videocommentstore($id)
-    {
-        $video = Morph2Video::find($id);
-        $video->comments()->create([
-            'comment_body' => request('comment_body'),
+        $valid_data = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
         ]);
 
-        
-        return back();
+        //dd($valid_data);
+
+        M3Tag::create($valid_data);
+
+        return redirect(url('/morph3/tag'))->with('success', 'New tag add successfuly.');
     }
-    
-    public function postcommentstore($id)
-    {
-        $post = Morph2Post::find($id);
-        $post->comments()->create([
-            'comment_body' => request('comment_body'),
-        ]);
-
-        
-        return back();
-    }
-
-
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\M3Tag  $m3Tag
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(M3Tag $m3Tag)
     {
         //
     }
@@ -80,10 +63,10 @@ class morphcommentControl extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\M3Tag  $m3Tag
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(M3Tag $m3Tag)
     {
         //
     }
@@ -92,10 +75,10 @@ class morphcommentControl extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\M3Tag  $m3Tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, M3Tag $m3Tag)
     {
         //
     }
@@ -103,10 +86,10 @@ class morphcommentControl extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\M3Tag  $m3Tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(M3Tag $m3Tag)
     {
         //
     }

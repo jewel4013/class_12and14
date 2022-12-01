@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Morph2Comment;
-use App\Models\Morph2Post;
-use App\Models\Morph2Video;
+use App\Models\M3comment;
+use App\Models\M3mmpost;
+use App\Models\M3video;
 use Illuminate\Http\Request;
 
-class morphcommentControl extends Controller
+class M3MMComment extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class morphcommentControl extends Controller
      */
     public function index()
     {
-        return view('morph2.commentsindex', [
-            'comments' => Morph2Comment::all(),
+        return view('/morph3/comment.index', [
+            'comments' => M3comment::all(),
         ]);
     }
 
@@ -39,32 +39,49 @@ class morphcommentControl extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    public function videocommentstore($id)
-    {
-        $video = Morph2Video::find($id);
-        $video->comments()->create([
-            'comment_body' => request('comment_body'),
+        $request->validate([
+            'comment' => 'required|max:2000',
         ]);
 
-        
+
         return back();
     }
+    public function postcomment(Request $request, $id)
+    {
+        $request->validate([
+            'comment' => 'required|max:2000',
+        ],[
+            'comment.required' => 'Write something first.',
+            'comment.max' => 'Maximum charecter for comment is 2000.',
+        ]);
+        $spost = M3mmpost::find($id);
+        //dd(request('comment'));
+        $spost->comments()->create([
+            'comment' => request('comment'),
+        ]);
+
+        return back();
+    }
+    public function videocomment(Request $request, $id)
+    {
+        $request->validate([
+            'comment' => 'required|max:2000',
+        ],[
+            'comment.required' => 'Write something first.',
+            'comment.max' => 'Maximum charecter for comment is 2000.',
+        ]);
+        $svideo = M3video::find($id);
+        //dd(request('comment'));
+        $svideo->comments()->create([
+            'comment' => request('comment'),
+        ]);
+
+        return back();
+    }
+
+
     
-    public function postcommentstore($id)
-    {
-        $post = Morph2Post::find($id);
-        $post->comments()->create([
-            'comment_body' => request('comment_body'),
-        ]);
-
-        
-        return back();
-    }
-
-
+    
 
     /**
      * Display the specified resource.

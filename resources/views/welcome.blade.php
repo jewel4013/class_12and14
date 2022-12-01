@@ -10,13 +10,14 @@
 <body>
     <div class="container">
         <h1>One To One relation. Class 12 and 14-15</h1>
-        <a href="/user-create" class="btn btn-info">Create a new user</a>
-        <a href="/profile" class="btn btn-info">See Profile</a>
-        <a href="/sendmail" class="btn btn-info">Send Mail</a>
-        <a href="/fileup" class="btn btn-info">Upload a file</a>
-        <a href="{{url('/ultifileup')}}" class="btn btn-info">Multiple file Upload</a>
-        <a href="{{url('/morph')}}" class="btn btn-info">Morph One To One</a>
-        <a href="{{url('/morph2')}}" class="btn btn-info">Morph One To Many</a>
+        <a href="/user-create" class="btn btn-info m-1">Create a new user</a>
+        <a href="/profile" class="btn btn-info m-1">See Profile</a>
+        <a href="/sendmail" class="btn btn-info m-1">Send Mail</a>
+        <a href="/fileup" class="btn btn-info m-1">Upload a file</a>
+        <a href="{{url('/ultifileup')}}" class="btn btn-info m-1">Multiple file Upload</a>
+        <a href="{{url('/morph')}}" class="btn btn-info m-1">Morph One To One</a>
+        <a href="{{url('/morph2')}}" class="btn btn-info m-1">Morph One To Many</a>
+        <a href="{{url('/morph3')}}" class="btn btn-info m-1">Morph Many To Many</a>
 
         <table class="table">
             <tr>

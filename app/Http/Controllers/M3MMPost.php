@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Morph2Comment;
-use App\Models\Morph2Post;
-use App\Models\Morph2Video;
+use App\Models\M3comment;
+use App\Models\M3mmpost as Model3mmpost;
+use App\Models\M3Tag;
 use Illuminate\Http\Request;
 
-class morphcommentControl extends Controller
+class M3MMPost extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class morphcommentControl extends Controller
      */
     public function index()
     {
-        return view('morph2.commentsindex', [
-            'comments' => Morph2Comment::all(),
+        return view('morph3.post.index', [
+            'posts' => Model3mmpost::all(),
         ]);
     }
 
@@ -28,7 +28,9 @@ class morphcommentControl extends Controller
      */
     public function create()
     {
-        //
+        return view('morph3.post.create', [
+            'tags' => M3Tag::all(),
+        ]);
     }
 
     /**
@@ -39,32 +41,20 @@ class morphcommentControl extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    public function videocommentstore($id)
-    {
-        $video = Morph2Video::find($id);
-        $video->comments()->create([
-            'comment_body' => request('comment_body'),
+        $request->validate([
+            'caption' => 'required|min:5',
+            'pbody' => 'required|min:5|max:5000', 
+            'tag' => 'required',
         ]);
 
+        $video = Model3mmpost::create(request()->except(['_token', 'tag']));
+
+        $tags = M3Tag::find($request->tag);
+
+        $video->tags()->attach($tags);
         
-        return back();
+        return redirect()->to(route('post.index'));
     }
-    
-    public function postcommentstore($id)
-    {
-        $post = Morph2Post::find($id);
-        $post->comments()->create([
-            'comment_body' => request('comment_body'),
-        ]);
-
-        
-        return back();
-    }
-
-
 
     /**
      * Display the specified resource.
@@ -74,7 +64,9 @@ class morphcommentControl extends Controller
      */
     public function show($id)
     {
-        //
+        return view('morph3.post.show',[
+            'spost' => Model3mmpost::find($id),
+        ]);
     }
 
     /**

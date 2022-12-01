@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Morph2Comment;
-use App\Models\Morph2Post;
-use App\Models\Morph2Video;
+use App\Models\M3video;
 use Illuminate\Http\Request;
 
-class morphcommentControl extends Controller
+class M3MMVideo extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,8 @@ class morphcommentControl extends Controller
      */
     public function index()
     {
-        return view('morph2.commentsindex', [
-            'comments' => Morph2Comment::all(),
+        return view('morph3/video.index', [
+            'videos' => M3video::all(),
         ]);
     }
 
@@ -28,7 +26,7 @@ class morphcommentControl extends Controller
      */
     public function create()
     {
-        //
+        return view('morph3/video.create');
     }
 
     /**
@@ -39,32 +37,16 @@ class morphcommentControl extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    public function videocommentstore($id)
-    {
-        $video = Morph2Video::find($id);
-        $video->comments()->create([
-            'comment_body' => request('comment_body'),
+        $request->validate([
+            'caption' => 'required',
+            'url' => 'required',
+            'vpath' => 'required',
         ]);
 
-        
-        return back();
+        M3video::create(request()->except('_token'));
+
+        return redirect(url('/morph3/video'));
     }
-    
-    public function postcommentstore($id)
-    {
-        $post = Morph2Post::find($id);
-        $post->comments()->create([
-            'comment_body' => request('comment_body'),
-        ]);
-
-        
-        return back();
-    }
-
-
 
     /**
      * Display the specified resource.
@@ -74,7 +56,9 @@ class morphcommentControl extends Controller
      */
     public function show($id)
     {
-        //
+        return view('/morph3/video.show',[
+            'svideo' => M3video::find($id),
+        ]);
     }
 
     /**

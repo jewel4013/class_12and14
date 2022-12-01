@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\FileControl;
+use App\Http\Controllers\M3MMComment;
+use App\Http\Controllers\M3MMPost;
+use App\Http\Controllers\M3MMTag;
+use App\Http\Controllers\M3MMVideo;
 use App\Http\Controllers\morphcommentControl;
 use App\Http\Controllers\morphControl;
 use App\Http\Controllers\morphpostControl;
@@ -53,18 +57,44 @@ Route::post('/morph/post', [morphControl::class, 'poststore']);
 Route::get('/morph2', function(){
     return view('morph2.index');
 });
+
+Route::get('/morph2/comments', [morphcommentControl::class, 'index']);
+
 Route::get('/morph2/post', [morphpostControl::class, 'index']);
 Route::get('/morph2/post/create', [morphpostControl::class, 'create']);
 Route::post('/morph2/post/create', [morphpostControl::class, 'store']);
+Route::get('/morph2/post/{id}', [morphpostControl::class, 'show']);
+Route::post('/morph2/post/{id}/comment', [morphcommentControl::class, 'postcommentstore']);
 
 Route::get('/morph2/video', [morphvideoControl::class, 'index']);
 Route::get('/morph2/video/create', [morphvideoControl::class, 'create']);
 Route::post('/morph2/video/create', [morphvideoControl::class, 'store']);
 Route::get('/morph2/video/{id}', [morphvideoControl::class, 'show']);
+Route::post('/morph2/video/{id}/comment', [morphcommentControl::class, 'videocommentstore']);
 
-Route::post('/morph2/video/{id}/comment', [morphcommentControl::class, 'commentstore']);
 
 
+// Morph 3 => Many to Many relation
+Route::get('/morph3', function(){
+    return view('morph3.index');
+});
+
+Route::get('/morph3/comment', [M3MMComment::class, 'index']);
+
+Route::resource('morph3/post', M3MMPost::class);
+Route::post('/morph3/post/{id}/comment', [M3MMComment::class, 'postcomment']);
+Route::resource('morph3/video', M3MMVideo::class);
+Route::post('/morph3/video/{id}/comment', [M3MMComment::class, 'videocomment']);
+Route::resource('/morph3/tag', M3MMTag::class);
+
+
+
+
+
+
+
+
+// 
 Route::get('/{id}', [userControl::class, 'show']);
 Route::get('/{id}/user-edit', [userControl::class, 'edit']);
 Route::patch('/{id}/user-edit', [userControl::class, 'update']);
