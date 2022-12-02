@@ -16,7 +16,7 @@
 
         <div class="card my-3">
             <div class="card-body">
-                <span>{{$spost->created_at->tz('6.00')}}</span>
+                <span>{{$spost->created_at}}</span>
                 <h2>{{$spost->caption}}</h2>
                 <p>{{$spost->pbody}}</p>
             </div>

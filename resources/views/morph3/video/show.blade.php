@@ -16,7 +16,7 @@
 
         <div class="card my-3">
             <div class="card-body">
-                <span>{{$svideo->created_at->tz('6.00')}}</span>
+                <span>{{$svideo->created_at}}</span>
                 <h2>{{$svideo->caption}}</h2>
                 <p class="d-flex justify-content-center">{{$svideo->url}}</p>
                 <p class="d-flex justify-content-center">{{$svideo->vpath}}</p>

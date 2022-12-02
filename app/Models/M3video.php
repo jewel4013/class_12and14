@@ -14,4 +14,7 @@ class M3video extends Model
     public function comments(){
         return $this->morphMany('App\Models\M3comment', 'commentable');
     }
+    public function tags(){
+        return $this->morphToMany('App\Models\M3Tag', 'taggable');
+    }
 }

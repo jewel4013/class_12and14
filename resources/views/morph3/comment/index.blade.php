@@ -29,7 +29,7 @@
                     <td>{{$comment->commentable_type}}</td>
                     <td>{{$comment->commentable_id}}</td>
                     <td>
-                        <a href="/morph3/post/{{$comment->commentable_id}}" class="btn btn-info">Shwo post</a>
+                        <a href="/morph3/{{$comment->commentable_type}}/{{$comment->commentable_id}}" class="btn btn-info">Shwo post</a>
                     </td>
                 </tr>
             @endforeach

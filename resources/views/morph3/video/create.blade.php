@@ -14,7 +14,20 @@
         <a href="/morph3/video" class="btn btn-primary">Back</a>
         <a href="/" class="btn btn-primary">Home</a>
         
-        
+        {{-- @if (session('wrong'))    
+            <div class="alert alert-success alert-dismissible mt-3">
+                <a href="#" class="btn-close" data-bs-dismiss="alert"></a>
+                <strong>{{session('wrong')}}</strong>
+            </div>
+        @endif --}}
+
+        @if(session()->has('wrong'))
+            <div class="alert alert-danger alert-dismissible fade show mt-2">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>{{session()->get('wrong')}}</strong>
+            </div>
+        @endif
+
         <form action="{{route('video.index')}}" class="form" method="POST">
             @csrf
 
@@ -39,7 +52,17 @@
                     {{$errors->first('vpath')}}
                 </span>
             </div>
-            
+            <div class="form-group mt-2">
+                <label for="tag">Video Path</label>
+                <select name="tag[]" id="tag" class="form-control {{$errors->has('tag') ? 'is-invalid' : ''}}" multiple>
+                    @foreach ($tags as $tag)
+                        <option value="{{$tag->id}}">{{$tag->name}}</option>
+                    @endforeach
+                </select>
+                <span class="invalid-feedback">
+                    {{$errors->first('tag')}}
+                </span>
+            </div>
 
 
 

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\M3Tag;
 use App\Models\M3video;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class M3MMVideo extends Controller
 {
@@ -26,7 +29,9 @@ class M3MMVideo extends Controller
      */
     public function create()
     {
-        return view('morph3/video.create');
+        return view('morph3/video.create', [
+            'tags' => M3Tag::all(),
+        ]);
     }
 
     /**
@@ -41,9 +46,18 @@ class M3MMVideo extends Controller
             'caption' => 'required',
             'url' => 'required',
             'vpath' => 'required',
+            'tag' => 'required',
         ]);
 
-        M3video::create(request()->except('_token'));
+        try{
+            DB::transaction(function(){
+                $videos = M3video::create(request()->except(['_token', 'tag']));
+                $tags = M3Tag::find(request('teg'));
+                $videos->tags()->attach($tags);
+            });
+        }catch(Exception $e){
+            return back()->with('wrong', 'Something wrong. Please try again letter');
+        }
 
         return redirect(url('/morph3/video'));
     }
