@@ -27,16 +27,12 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Action</th>
             </tr>
             @foreach ($tags as $tag)
                 <tr>
                     <td>{{$tag->id}}</td>
-                    <td>{{$tag->name}}</td>
+                    <td><a href="/morph3/tag/{{$tag->name}}" class="">{{$tag->name}}</a></td>
                     <td>{{$tag->description}}</td>
-                    <td>
-                        <a href="/morph3/tag/{{$tag->id}}/edit" class="btn btn-info">Edit</a>
-                    </td>
                 </tr>
             @endforeach
         </table>

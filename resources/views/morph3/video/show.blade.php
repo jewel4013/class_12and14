@@ -20,6 +20,10 @@
                 <h2>{{$svideo->caption}}</h2>
                 <p class="d-flex justify-content-center">{{$svideo->url}}</p>
                 <p class="d-flex justify-content-center">{{$svideo->vpath}}</p>
+
+
+
+                <a  href="/morph3/video/{{$svideo->id}}/edit" class="align-items-end">Edit Video</a>
             </div>
 
 

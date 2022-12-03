@@ -52,7 +52,7 @@ class M3MMVideo extends Controller
         try{
             DB::transaction(function(){
                 $videos = M3video::create(request()->except(['_token', 'tag']));
-                $tags = M3Tag::find(request('teg'));
+                $tags = M3Tag::find(request('tag'));
                 $videos->tags()->attach($tags);
             });
         }catch(Exception $e){
@@ -83,7 +83,10 @@ class M3MMVideo extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('morph3.video.edit', [
+            'svideo' => M3video::find($id),
+            'tags' => M3Tag::all(),
+        ]);
     }
 
     /**
@@ -95,7 +98,37 @@ class M3MMVideo extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'caption' => 'required|min:3',
+            'url' => 'required',
+            'vpath' => 'required',
+            'tag' => 'required',
+        ]);
+
+        // form data
+        $tag = $request->tag;
+        // original data
+        $video = M3video::find($id);
+        // original data update
+        $video->update(request()->except(['_token', 'tag']));
+        // form data match with oridinal data ()
+        $valid_tag = M3Tag::find($tag);
+
+
+
+
+        // detach data 
+        // $video->tags()->detach($video->tags);
+        // // attach data
+        // $video->tags()->attach($valid_tag);
+        // // or
+        $video->tags()->sync($valid_tag);
+
+
+
+        // return 
+        return redirect(url('/morph3/video/'.$id));
+
     }
 
     /**

@@ -26,7 +26,7 @@
                 </span>
             </div>
             <div class="form-group mt-2">
-                <label for="pbody">Bost body</label>
+                <label for="pbody">Post body</label>
                 <textarea class="form-control {{$errors->has('pbody') ? 'is-invalid' : ''}}" name="pbody" id="pbody" rows="5" cols="5">{{old('pbody')}}</textarea>
                 <span class="invalid-feedback">
                     {{$errors->first('pbody')}}

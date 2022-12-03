@@ -55,9 +55,11 @@ class M3MMTag extends Controller
      * @param  \App\Models\M3Tag  $m3Tag
      * @return \Illuminate\Http\Response
      */
-    public function show(M3Tag $m3Tag)
+    public function show($tagname)
     {
-        //
+        $tags = M3Tag::where('name', $tagname)->first();
+        
+        return view('morph3.tag.show', compact('tags'));
     }
 
     /**

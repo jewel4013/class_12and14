@@ -11,4 +11,17 @@ class M3Tag extends Model
 
     protected $guarded = [];
     
+    public function posts(){
+        return $this->morphedByMany('App\Models\M3mmpost', 'taggable');
+    }
+
+    public function videos(){
+        return $this->morphedByMany('App\Models\M3video', 'taggable');
+    }
+
+    // public function getRouteKeyName()
+    // {
+    //     return $this->getKeyName();
+    // }
+
 }
