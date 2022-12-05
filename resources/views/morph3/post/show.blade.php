@@ -19,7 +19,10 @@
                 <span>{{$spost->created_at}}</span>
                 <h2>{{$spost->caption}}</h2>
                 <p>{{$spost->pbody}}</p>
+
+                <a href="/morph3/post/{{$spost->id}}/edit" class="">Edit post</a>
             </div>
+
 
 
             {{-- comment --}}

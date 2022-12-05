@@ -83,9 +83,15 @@ class M3MMVideo extends Controller
      */
     public function edit($id)
     {
+
+        $video =   M3video::find($id);
+        $video_tag = $video->tags->pluck('id');
+
+
         return view('morph3.video.edit', [
-            'svideo' => M3video::find($id),
+            'svideo' => $video,
             'tags' => M3Tag::all(),
+            'vtag' => $video_tag,
         ]);
     }
 
@@ -104,6 +110,7 @@ class M3MMVideo extends Controller
             'vpath' => 'required',
             'tag' => 'required',
         ]);
+
 
         // form data
         $tag = $request->tag;

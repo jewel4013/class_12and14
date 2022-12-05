@@ -77,7 +77,12 @@ class M3MMPost extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Model3mmpost::find($id);
+        return view('morph3.post.edit',[
+            'spost' => $post,
+            'tags' => M3Tag::all(),
+            'posttag' => $post->tags->pluck('id'),
+        ]);
     }
 
     /**
@@ -89,7 +94,33 @@ class M3MMPost extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'caption' => 'required|min:5',
+            'pbody' => 'required|min:5|max:5000', 
+            'tag' => 'required',
+        ]);
+
+        // get new data from form
+        $tag = $request->tag;
+        // original data from database
+        $spost = Model3mmpost::find($id);
+        // update data
+        $spost->update(request()->except(['_token', 'tag']));
+        // match new form data with exixting original data (tags)
+        $valid_tag = M3Tag::find($tag);
+
+           
+        
+            // // detach data (tag)
+            // $spost->tags()->detach($spost->tags);
+            // // attach data (tag)
+            // $spost->tags()->attach($valid_tag);
+        //or
+        $spost->tags()->sync($valid_tag);
+
+
+
+        return redirect(url('/morph3/post/'.$id));
     }
 
     /**

@@ -59,7 +59,7 @@
                 <label for="tag">Video Path</label>
                 <select name="tag[]" id="tag" class="form-control {{$errors->has('tag') ? 'is-invalid' : ''}}" multiple>
                     @foreach ($tags as $tag)
-                        <option value="{{$tag->id}}">{{$tag->name}}</option>
+                        <option value="{{$tag->id}}" {{$vtag->contains($tag->id) ? 'selected' : ''}}>{{$tag->name}}</option>
                     @endforeach
                 </select>
                 <span class="invalid-feedback">
